@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- 命名空间用来区分多个相同文件中相同的id    
+  -->
+<mapper namespace="cn.et.lesson04.dysql.FoodMapper">
+	<select id="queryFood" resultType="java.util.Map">
+		select * from FOOD where foodname=#{foodname}
+  </select>
+  
+  <select id="queryFoodName" resultType="food">
+      select * from FOOD where foodid=1
+      <if test="foodname != null">
+          and foodname like	#{foodname}
+      </if>
+  </select>
+  
+</mapper>

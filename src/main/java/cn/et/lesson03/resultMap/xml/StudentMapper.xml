@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.et.lesson03.resultMap.xml.StudentMapper">
+	<sql id="studentSql">
+		select * from student
+</sql>
+	<resultMap type="student" id="resultStudent" autoMapping="true">
+		<id column="sid" property="sid" />
+		<association property="grade" column="gid" fetchType="lazy"
+			select="cn.et.lesson03.resultMap.xml.GradeMapper.queryGradeByGid"></association>
+	</resultMap>
+	<select id="queryAllStudent" resultType="student">
+		<include refid="studentSql"></include>
+	</select>
+
+	<select id="queryStudent" resultMap="resultStudent">
+		<include refid="studentSql"></include>
+		where sid=#{0}
+	</select>
+
+	<select id="queryStudentByGid" resultType="student">
+		<include refid="studentSql"></include>
+		where gid=#{0}
+	</select>
+</mapper>

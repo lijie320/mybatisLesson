@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- 命名空间用来区分多个相同文件中相同的id    
+  -->
+<mapper namespace="cn.et.lesson02.xml.FoodMapper">
+	<select id="queryFood" resultType="java.util.Map">
+		select * from FOOD where foodname=#{foodname}
+  </select>
+  
+  <delete id="deleteFood">
+		delete from food where foodid=#{0}
+  </delete>
+  
+  <select id="queryFoodName" resultType="food">
+      select * from FOOD where foodname like '%${foodname}%'
+  </select>
+  
+  <insert id="saveFood">
+      <selectKey keyProperty="foodid" order="BEFORE" resultType="int" statementType="STATEMENT">
+          select FOOD_SEC.Nextval from dual
+      </selectKey>
+      insert into food values(#{foodid},#{foodname},#{price})
+  </insert>
+</mapper>

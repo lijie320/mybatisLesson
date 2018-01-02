@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- 命名空间用来区分多个相同文件中相同的id    
+  -->
+<mapper namespace="a">
+	<select id="selectFood" resultType="java.util.Map">
+		select * from FOOD
+  </select>
+
+	<select id="selectFoodId" resultType="java.util.Map">
+		select * from food where foodid=1
+  </select>
+
+
+	<select id="deleteFood">
+		delete from food where foodid=3
+  </select>
+
+	<select id="insertFood">
+		insert into FOOD values(FOOD_SEC.NEXTVAL,#{foodname},#{price})
+  </select>
+  
+  	<select id="updateFood">
+		update food set foodname='666',price=666 where foodid=1
+  </select>
+  <!--
+  
+    -->
+  	<select id="selectFoodName" resultType="java.util.Map">
+		select * from food where price=${price} and foodname='${foodname}'
+  </select>
+</mapper>

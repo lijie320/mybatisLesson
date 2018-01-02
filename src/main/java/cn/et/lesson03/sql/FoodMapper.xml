@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- 命名空间用来区分多个相同文件中相同的id    
+  -->
+<mapper namespace="cn.et.lesson03.sql.FoodMapper">
+<sql id="commonSql">
+    select * from
+</sql>
+  
+  <select id="queryFoodName" resultType="map">
+  <include refid="commonSql"></include>
+       FOOD where foodname like '%${foodname}%'
+  </select>
+  
+</mapper>

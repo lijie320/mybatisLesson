@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- 命名空间用来区分多个相同文件中相同的id    
+  -->
+<mapper namespace="cn.et.lesson04.xml.ClassMapper">
+	<select id="queryClass" resultType="class">
+		select * from class
+		<where>
+			<if test="cname!=null">
+				and cname like '%${cname}%'
+		</if>
+			<if test="caddress!=null">
+				and caddress like '%${caddress}%'
+		</if>
+		</where>
+	</select>
+
+	<select id="querySex" resultType="class">
+		select * from class
+		<where>
+			<choose>
+				<when test="sex!=null">
+					and csex = #{sex}
+	        </when>
+				<otherwise>
+					and sex=1
+	        </otherwise>
+			</choose>
+		</where>
+	</select>
+
+	<select id="queryClass1" resultType="class">
+		select * from class where
+		<trim prefix="" prefixOverrides="and">
+			<if test="cname!=null">
+				and cname like '%${cname}%'
+		</if>
+			<if test="caddress!=null">
+				and caddress like '%${caddress}%'
+		</if>
+		</trim>
+	</select>
+
+	<select id="queryClassGid" resultType="class">
+		select * from class
+		<foreach collection="classList" open="where gid in(" close=")"
+			separator="," item="cl">
+			${cl}
+	    </foreach>
+	</select>
+
+	<update id="updateClass">
+		update class
+		<set>
+			<if test="cname!=null">
+				cname=#{cname},
+	   </if>
+			<if test="caddress!=null">
+				caddress=#{caddress},
+	   </if>
+			<if test="csex!=null">
+				csex=#{csex}
+	   </if>
+		</set>
+		where cid=#{cid}
+	</update>
+</mapper>

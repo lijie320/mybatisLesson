@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.et.lesson03.resultMap.xml.GradeMapper">
+	<sql id="gradeSql">
+		select * from grade
+</sql>
+	<resultMap type="grade" id="resuleGrade" autoMapping="true">
+		<id column="gid" property="gid" />
+		<result column="gname" property="gname1" />
+	</resultMap>
+
+	<!-- 用于一对多的映射 -->
+	<resultMap type="grade" id="gradeMap" autoMapping="true">
+		<id column="gid" property="gid" />
+		<result column="gname" property="gname1" />
+		<collection property="studentList" column="gid" javaType="arraylist"
+			select="cn.et.lesson03.resultMap.xml.StudentMapper.queryStudentByGid"></collection>
+	</resultMap>
+
+	<select id="queryAllGrade" resultMap="resuleGrade">
+		<include refid="gradeSql"></include>
+	</select>
+
+	<select id="queryGradeByGid" resultMap="resuleGrade">
+		<include refid="gradeSql"></include>
+		where gid=#{gid}
+	</select>
+
+	<select id="queryGrade" resultMap="gradeMap">
+		<include refid="gradeSql"></include>
+		where gid=#{gid}
+	</select>
+</mapper>
